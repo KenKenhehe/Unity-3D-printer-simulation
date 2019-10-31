@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             Collider[] interactables = Physics.OverlapSphere(transform.position, interactRadius);
-            if (interactables[0] != null)
+            if (interactables[0].GetComponent<Interactable>() != null)
             {
                 interactables[0].GetComponent<Interactable>().Interact();
             }
