@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    public bool InteractOnce = true;
+    public bool HasInteracted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +21,10 @@ public class Interactable : MonoBehaviour
     public virtual void Interact()
     {
         print("Interact");
+    }
+
+    public virtual void DeInteract()
+    {
+        print("disable interaction");
     }
 }

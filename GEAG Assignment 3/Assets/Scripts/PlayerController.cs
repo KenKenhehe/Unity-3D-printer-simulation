@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float interactRadius;
+    public float interactRadius = 5;
+    GameObject selectedObject;
+    bool canSelect = true;
+    GameObject buttonObject = null;
+    public GameObject cursor;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -19,13 +23,40 @@ public class PlayerController : MonoBehaviour
 
     void InteractWithObj()
     {
+        Vector3 headPosition = Camera.main.transform.position;
+        Vector3 aimDirection = Camera.main.transform.forward;
+
+        RaycastHit hitinfo;
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Collider[] interactables = Physics.OverlapSphere(transform.position, interactRadius);
-            if (interactables[0].GetComponent<Interactable>() != null)
+            if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius) && canSelect == true)
             {
-                interactables[0].GetComponent<Interactable>().Interact();
+                print(hitinfo.collider.name);
+
+                if (hitinfo.collider != null && hitinfo.transform.gameObject.GetComponent<Interactable>() != null)
+                {
+                    hitinfo.transform.gameObject.GetComponent<Interactable>().Interact();
+                    selectedObject = hitinfo.transform.gameObject;
+                    canSelect = false;
+                }
+               
             }
+            else if (canSelect == false)
+            {
+                selectedObject.GetComponent<Interactable>().DeInteract();
+                canSelect = true;
+            }
+
+        }
+
+        if(Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius))
+        {
+            if(hitinfo.collider.gameObject.GetComponent<InteractableButtons>() != null)
+            {
+                //cursor.GetComponent<SphereCollider>().enabled = true;
+                cursor.transform.position = hitinfo.point;
+            }
+           
         }
     }
 }
