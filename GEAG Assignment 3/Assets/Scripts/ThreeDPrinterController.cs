@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ThreeDPrinterController : Interactable
 {
+    public static bool printingInProgress = false;
+
     bool HasFocus;
     PlayerController player;
+
+    [HideInInspector]
+    public bool turnON = false;
     public Transform cameraViewPosition;
     public Transform cameraOriginalPosition;
     Animator animator;
@@ -25,25 +30,14 @@ public class ThreeDPrinterController : Interactable
     public override void Interact()
     {
         animator.SetTrigger("TurnOn");
-        /*Camera.main.transform.parent = null;
-        cameraOriginalPosition = Camera.main.transform;
-        cameraOriginalPosition.position = Camera.main.transform.position;
-        cameraOriginalPosition.rotation = Camera.main.transform.rotation;
-
-        Camera.main.transform.position = cameraViewPosition.position;
-        Camera.main.transform.rotation = cameraViewPosition.rotation;
-        player.gameObject.GetComponent<FPSController>().enabled = false;*/
-
+        turnON = true;
         base.Interact();
     }
 
     public override void DeInteract()
     {
         animator.SetTrigger("TurnOff");
+        turnON = false;
         base.DeInteract();
-        /*Camera.main.transform.parent = player.transform;
-        Camera.main.transform.position = Vector3.zero;
-        Camera.main.transform.rotation = cameraOriginalPosition.rotation;
-        player.gameObject.GetComponent<FPSController>().enabled = true;*/
     }
 }

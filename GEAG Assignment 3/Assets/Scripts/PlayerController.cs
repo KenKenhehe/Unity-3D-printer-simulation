@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         Vector3 aimDirection = Camera.main.transform.forward;
 
         RaycastHit hitinfo;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && ThreeDPrinterController.printingInProgress == false)
         {
             if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius) && canSelect == true)
             {
