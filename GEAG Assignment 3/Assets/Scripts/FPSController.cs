@@ -12,6 +12,7 @@ public class FPSController : MonoBehaviour
     float xRotation;
     public bool FlyMode = false;
     Vector3 movement;
+    public float gravity = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,7 @@ public class FPSController : MonoBehaviour
     {
         PlayerLook();
         PlayerMove();
+
     }
 
     void PlayerLook()
@@ -44,21 +46,23 @@ public class FPSController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         transform.Rotate(Vector3.up * mouseX);
         Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-       
+
     }
 
     void PlayerMove()
     {
         float movementForward = Input.GetAxis("Vertical");
         float movementHorizontal = Input.GetAxis("Horizontal");
-        
+
         if (FlyMode == true)
         {
-             movement = transform.right * movementHorizontal + Camera.main.transform.forward * movementForward;
+            movement = transform.right * movementHorizontal + Camera.main.transform.forward * movementForward;
+
         }
         else
         {
-             movement = transform.right * movementHorizontal + transform.forward * movementForward;
+            movement = transform.right * movementHorizontal + transform.forward * movementForward;
+            movement.y -= gravity * Time.fixedDeltaTime;
         }
         controller.Move(movement * moveSpeed * Time.deltaTime);
     }

@@ -20,13 +20,10 @@ public class CursorController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("Collide");
         if (collision.gameObject.GetComponent<InteractableButtons>() != null)
         {
-            print("Collide");
             collision.gameObject.GetComponent<InteractableButtons>().OnHover();
         }
-        
     }
 
     private void OnCollisionExit(Collision collision)

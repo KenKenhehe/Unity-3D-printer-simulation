@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ThreeDPrinterController : Interactable
 {
@@ -13,6 +14,7 @@ public class ThreeDPrinterController : Interactable
     public bool turnON = false;
     public Transform cameraViewPosition;
     public Transform cameraOriginalPosition;
+    public GameObject SwitchText;
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class ThreeDPrinterController : Interactable
     public override void Interact()
     {
         animator.SetTrigger("TurnOn");
+        SwitchText.GetComponent<TextMeshPro>().text = "ON";
         turnON = true;
         base.Interact();
     }
@@ -37,7 +40,9 @@ public class ThreeDPrinterController : Interactable
     public override void DeInteract()
     {
         animator.SetTrigger("TurnOff");
+        SwitchText.GetComponent<TextMeshPro>().text = "OFF";
         turnON = false;
         base.DeInteract();
     }
+
 }
