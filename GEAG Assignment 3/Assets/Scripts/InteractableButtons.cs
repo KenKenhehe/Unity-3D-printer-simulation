@@ -10,7 +10,7 @@ public class InteractableButtons : MonoBehaviour
     public GameObject objectToShow;
     public GameObject objectToPrint;
     Animator animator;
-
+    public GameObject ConfigMenuObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,16 +59,17 @@ public class InteractableButtons : MonoBehaviour
 
     public void OnClick()
     {
-        if (ThreeDPrinterController.printingInProgress == false)
+        /*if (ThreeDPrinterController.printingInProgress == false)
         {
             Instantiate(objectToPrint, printerTransform.position, Quaternion.identity);
             objectToShow.SetActive(false);
-        }
+        }*/
+        ShowConfigurations();
     }
 
     public void ShowConfigurations()
     {
-
+        ConfigMenuObj.GetComponent<Animator>().SetTrigger("ShowConfig");
     }
 
     public void StartPrint()
