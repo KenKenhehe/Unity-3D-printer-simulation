@@ -7,12 +7,11 @@ public class PrintedObject : Interactable
     bool hasGrab = false;
     GameObject transformToAttach;
     Rigidbody rb;
-
+    bool OnPrinter;
 
     // Start is called before the first frame update
     void Start()
     {
-        //player = FindObjectOfType<PlayerController>();
         transformToAttach = GameObject.FindGameObjectWithTag("ObjectTransform");
         rb = GetComponent<Rigidbody>();
     }
@@ -25,6 +24,7 @@ public class PrintedObject : Interactable
 
     public override void Interact()
     {
+        GetComponent<Rotator>().enabled = false;
         Grab(transformToAttach);
     }
 

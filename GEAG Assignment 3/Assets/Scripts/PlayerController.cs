@@ -46,10 +46,23 @@ public class PlayerController : MonoBehaviour
                 canSelect = true;
             }
         }
-
-        if (Input.GetMouseButtonDown(0))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius))
+            if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius) )
+            {
+                if (hitinfo.collider != null && hitinfo.collider.gameObject.GetComponent<Interactable>() != null)
+                {
+                    Instantiate(hitinfo.collider.gameObject, 
+                        hitinfo.collider.gameObject.transform.position + new Vector3(1, 0, 1), 
+                        Quaternion.identity);
+                }
+            }
+        }
+
+
+        if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius))
+        {
+            if (Input.GetMouseButtonDown(0))
             {
                 if (hitinfo.collider.gameObject.GetComponent<InteractableButtons>() != null)
                 {
@@ -60,7 +73,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(headPosition, aimDirection, out hitinfo, interactRadius))
         {
-            print(hitinfo.collider.gameObject.name);
             if (hitinfo.collider.gameObject.GetComponent<InteractableButtons>() != null)
             {
                 cursor.transform.position = hitinfo.point;

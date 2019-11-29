@@ -4,76 +4,40 @@ using UnityEngine;
 
 public class InteractableButtons : MonoBehaviour
 {
-    bool hovering = false;
-    bool hasAnimated = false;
+    protected Animator animator;
+    protected bool hovering = false;
     public Transform printerTransform;
-    public GameObject objectToShow;
-    public GameObject objectToPrint;
-    Animator animator;
-    public GameObject ConfigMenuObj;
+
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        printerTransform = GameObject.FindGameObjectWithTag("printerTransform").transform;
+        Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*Vector3 headPosition = Camera.main.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
-        Vector3 aimDirection = Camera.main.transform.forward;
-        RaycastHit hitinfo;
-
-        if (Physics.Raycast(headPosition, aimDirection, out hitinfo, 5) && hitinfo.collider.gameObject == gameObject)
-        {
-            //print(hitinfo.collider.gameObject.GetComponent<InteractableButtons>() == null);
-            OnHover();
-            print(hitinfo.collider.gameObject);
-        }
-        else
-        {
-            DeHover();
-        }*/
+    
     }
 
-    public void OnHover()
+    public virtual void Init()
     {
-        if (hovering == false)
-        {
-            objectToShow.SetActive(true);
-            animator.SetTrigger("Select");
-            hovering = true;
-        }
+        animator = GetComponent<Animator>();
+        //printerTransform = GameObject.FindGameObjectWithTag("printerTransform").transform;
     }
 
-    public void DeHover()
+    public virtual void OnHover()
     {
-        if (hovering == true)
-        {
-            objectToShow.SetActive(false);
-            animator.SetTrigger("DeSelect");
-            hovering = false;
-        }
+        
     }
 
-    public void OnClick()
+    public virtual void DeHover()
     {
-        /*if (ThreeDPrinterController.printingInProgress == false)
-        {
-            Instantiate(objectToPrint, printerTransform.position, Quaternion.identity);
-            objectToShow.SetActive(false);
-        }*/
-        ShowConfigurations();
+       
     }
 
-    public void ShowConfigurations()
+    public virtual void OnClick()
     {
-        ConfigMenuObj.GetComponent<Animator>().SetTrigger("ShowConfig");
-    }
-
-    public void StartPrint()
-    {
-
+        
     }
 }
